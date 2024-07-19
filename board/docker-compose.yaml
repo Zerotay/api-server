@@ -1,0 +1,28 @@
+services:
+  aws-backend:
+    container_name: spring-boot
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+  database:
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: board
+      MYSQL_USER: aws-user
+      MYSQL_PASSWORD: aws-user
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+      # - 33060
+volumes:
+  # nginx:
+  mysql:
